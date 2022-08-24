@@ -12,4 +12,11 @@ public class LoginController {
 //		return "plain-login";
 		return "myLogin";
 	}
+	
+	// add request mapping for /403access-denied
+	@GetMapping("/403access-denied")
+	public String showAccessDenied() {
+		
+		return "access-denied";
+	}
 }

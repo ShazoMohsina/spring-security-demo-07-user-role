@@ -22,34 +22,26 @@ UserBuilder users = User.withDefaultPasswordEncoder();
 		auth.inMemoryAuthentication()
 			.withUser(users.username("Kim Namjoon").password("test123").roles("EMPLOYEE"))
 			.withUser(users.username("Kim Seokjin").password("test123").roles("MANAGER","EMPLOYEE"))
-			.withUser(users.username("Min yoongi").password("test123").roles("ADMIN","EMPLOYEE","SENIOR MANAGER"));
+			.withUser(users.username("Min yoongi").password("test123").roles("ADMIN","SENIOR MANAGER"));
 		}
-
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		
-//		http.authorizeRequests()
-//			.anyRequest().authenticated()
-//			.and()
-//			.formLogin()
-//				.loginPage("/showMyLoginPage")
-//				.loginProcessingUrl("/authenticateTheUser")
-//				.permitAll();
-//	}
 	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
  
         http.authorizeRequests()
-                .antMatchers("/css/**").permitAll()   // permits to use separate css files which is in css folder
-                .anyRequest().authenticated()
+                .antMatchers("/").hasRole("EMPLOYEE")  
+                .antMatchers("/leaders/**").hasRole("MANAGER")
+                .antMatchers("/systems/**").hasRole("ADMIN")
+                //.anyRequest().authenticated()
             .and()
             .formLogin()
                 .loginPage("/showMyLoginPage")
                 .loginProcessingUrl("/authenticateTheUser")
                 .permitAll()
             .and()
-            .logout().permitAll();        
+            	.logout().permitAll()
+            .and()
+            .exceptionHandling().accessDeniedPage("/403access-denied");
     }
 	
 	

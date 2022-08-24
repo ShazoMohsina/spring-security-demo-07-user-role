@@ -49,7 +49,7 @@
         
         
         <property name="java-output-path" value="/spring-security-demo-01-base-app/target/classes"/>
-        <property name="context-root" value="spring-security-demo"/>
+        <property name="context-root" value="spring-security-demo-07-user-roles"/>
                                                                             
     
     
